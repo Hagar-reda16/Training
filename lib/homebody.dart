@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:proj/p3.dart';
+import 'package:proj/all_products_section.dart';
 
-import 'p1.dart';
-import 'p2.dart';
+import 'featured_section.dart';
+import 'categories_section.dart';
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 

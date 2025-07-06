@@ -18,8 +18,8 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Welcome" ,style: TextStyle(fontSize:65,color: fontColor,fontFamily: 'Roboto'),),
-              Text("To Our Site" ,style:TextStyle(fontSize: 45,color: fontColor ,fontFamily: 'Roboto'),),
+              Text("Welcome" ,style: TextStyle(fontWeight:FontWeight.bold,fontSize:65,color: fontColor,fontFamily: 'Roboto'),),
+              Text("To Our Site" ,style:TextStyle(fontWeight:FontWeight.bold,fontSize: 45,color: fontColor ,fontFamily: 'Roboto'),),
               SizedBox(height:15),
               CircleAvatar(
                 radius: 140,
