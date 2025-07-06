@@ -18,15 +18,15 @@ class HomeBody extends StatelessWidget {
         ListView(
           padding: EdgeInsets.all(7),
           children: [
-            Part1(),
+            FeaturedSection(),
             SizedBox(
               height: 15,
             ),
-            Part2(),
+            CategoriesSection(),
             SizedBox(
               height: 15,
             ),
-            Part3(),
+            AllProductSection(),
 
           ],
         )

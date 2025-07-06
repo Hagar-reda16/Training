@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'categories.dart';
 import 'constant.dart';
-class Part2 extends StatelessWidget {
-  const Part2({super.key});
+class CategoriesSection extends StatelessWidget {
+  const CategoriesSection({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-class Part1 extends StatelessWidget {
-  const Part1({super.key});
+class FeaturedSection extends StatelessWidget {
+  const FeaturedSection({super.key});
 
   @override
   Widget build(BuildContext context) {

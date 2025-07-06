@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:proj/product_card.dart';
 import 'package:proj/products.dart';
 import 'package:proj/product_data.dart';
-class Part3 extends StatelessWidget {
+class AllProductSection extends StatelessWidget {
 
-   Part3({super.key});
+   AllProductSection({super.key});
 
   @override
   Widget build(BuildContext context) {
