@@ -69,6 +69,10 @@ flutter:
      - D:/proj/assets/pics/lipglossproduct.webp
      - D:/proj/assets/pics/mascara1.webp
      - D:/proj/assets/pics/nailpolish.jpg
+     - D:/proj/assets/pics/background.jpg
+     - assets/pics/background.jpg
+     - assets/pics/welcomepic.jpg
+     - assets/pics/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -81,10 +85,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: Roboto
+       fonts:
+         - asset: fonts/Roboto-Bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

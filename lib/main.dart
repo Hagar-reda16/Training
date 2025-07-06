@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:proj/home.dart';
+import 'package:proj/welcome_screen.dart';
 
 void main(){
   runApp(const ECommerce());
@@ -10,9 +11,10 @@ class ECommerce extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+
+     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:HomePage(),
+      home:WelcomeScreen(),
     );
   }
 }
