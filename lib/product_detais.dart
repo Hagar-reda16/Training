@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:proj/product_provider.dart';
 import 'package:proj/products.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetais extends StatelessWidget {
   const ProductDetais({required this.product,super.key});
  final  Product product;
   @override
   Widget build(BuildContext context) {
+    // final productProvider =Provider.of<ProductProvider>(context);
+    // final isLoading =productProvider.isLoading;
+    // final products = productProvider.getProducts;
+    // if(isLoading){
+    //   return Center(
+    //     child:CircularProgressIndicator(),
+    //   );
+    // }
     return Scaffold(
       appBar: AppBar(title: Text(product.name),
       centerTitle: true,),
