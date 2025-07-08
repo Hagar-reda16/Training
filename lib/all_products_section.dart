@@ -37,7 +37,7 @@ class AllProductSection extends StatelessWidget {
 
             itemBuilder: (context,index){
               final product=products[index];
-              return ProductCard(product: products[index]);
+              return ProductCard(products: products, index: index);
             }
         )
        
