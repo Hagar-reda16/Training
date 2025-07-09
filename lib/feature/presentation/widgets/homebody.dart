@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proj/all_products_section.dart';
+import 'package:proj/feature/presentation/widgets/all_products_section.dart';
 
 import 'featured_section.dart';
 import 'categories_section.dart';
@@ -16,15 +16,15 @@ class HomeBody extends StatelessWidget {
           ),
         ),
         ListView(
-          padding: EdgeInsets.all(7),
+          padding: EdgeInsets.all(8),
           children: [
             FeaturedSection(),
             SizedBox(
-              height: 15,
+              height: 16,
             ),
             CategoriesSection(),
             SizedBox(
-              height: 15,
+              height: 16,
             ),
             AllProductSection(),
 

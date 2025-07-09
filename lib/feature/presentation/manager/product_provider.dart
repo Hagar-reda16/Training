@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:proj/products.dart';
-import 'package:proj/product_data.dart';
+import 'package:proj/common_ui/products.dart';
+import 'package:proj/common_ui/product_data.dart';
 
 class ProductProvider with ChangeNotifier{
   List<Product> _productsList =[];
@@ -21,9 +21,6 @@ class ProductProvider with ChangeNotifier{
    _isLoading=false;
    notifyListeners();
   }
-  void addProduct(Product newProduct){
-    _productsList.add(newProduct);
-     notifyListeners();
-  }
+
 
 }

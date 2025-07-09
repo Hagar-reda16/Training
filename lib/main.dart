@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:proj/home.dart';
-import 'package:proj/welcome_screen.dart';
+import 'package:proj/feature/presentation/screens/home.dart';
+import 'package:proj/feature/presentation/screens/welcome_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:proj/product_provider.dart';
+import 'package:proj/feature/presentation/manager/product_provider.dart';
 
 
 void main(){

@@ -8,12 +8,10 @@ class Category extends StatelessWidget {
     return Container
       (
       color:Colors.transparent,
-      // to take the same color of the parent
-     // color: Colors.green,
       width: 200,
       height: 200,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(20),
         child:Image.asset(imgpath! ,fit: BoxFit.cover ),
       ),
     );

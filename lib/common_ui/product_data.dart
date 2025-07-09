@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proj/products.dart';
+import 'package:proj/common_ui/products.dart';
 
 final List <Product> products=[
   Product(imgproduct: "assets/pics/concealer.webp" ,name: "Concealer" ,price: "500 LE" ,

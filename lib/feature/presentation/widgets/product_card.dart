@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proj/product_detais.dart';
-import 'package:proj/products.dart';
+import 'package:proj/feature/presentation/screens/product_detais.dart';
+import 'package:proj/common_ui/products.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -25,20 +25,24 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              child: ClipRRect(
-                child: Image.asset(product.imgproduct ,
-                  fit: BoxFit.cover,),
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            Padding(padding: EdgeInsets.all(7) ,
+            imageBuild(product),
+            Padding(padding: EdgeInsets.all(8) ,
               child: Text(product.name),),
-            Padding(padding: EdgeInsets.all(7) ,
+            Padding(padding: EdgeInsets.all(8) ,
               child: Text(product.price),),
           ],
         ),
       ),
     );
+  }
+
+  Expanded imageBuild(Product product) {
+    return Expanded(
+            child: ClipRRect(
+              child: Image.asset(product.imgproduct ,
+                fit: BoxFit.cover,),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          );
   }
 }
