@@ -6,15 +6,15 @@ import 'package:proj/common_ui/product_data.dart';
 import 'package:proj/feature/presentation/manager/cart_bloc/cart_bloc.dart';
 import 'package:proj/feature/presentation/screens/cart_screen.dart';
 import 'package:proj/feature/presentation/widgets/homebody.dart';
+import 'package:proj/service_locator.dart';
 
-import '../manager/quantityBloc/quantity_bloc.dart';
-import 'package:proj/common_ui/product_data.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cartBloc=getIt<CartBloc>();
     return Scaffold(
       appBar: AppBar(
         title: Text("E-commerce", style: TextStyle( fontSize: 28), ),
@@ -24,6 +24,7 @@ class HomePage extends StatelessWidget {
           favouritesButton()
           ,
           BlocBuilder<CartBloc, Map<int, int>>(
+            bloc: cartBloc,
             builder: (context, cartItems) {
               int totalQuantity = cartItems.values.fold(0, (sum, item) => sum + item);
               return cartButton(context ,totalQuantity);
