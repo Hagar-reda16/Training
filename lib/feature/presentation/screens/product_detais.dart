@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:proj/feature/presentation/manager/product_provider.dart';
+
 import 'package:proj/common_ui/products.dart';
+import 'package:proj/feature/presentation/widgets/add_to_cart_button.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proj/feature/presentation/manager/quantityBloc/quantity_bloc.dart';
+
+
+import '../widgets/counter.dart';
 
 class ProductDetais extends StatelessWidget {
   const ProductDetais({
@@ -16,15 +22,8 @@ class ProductDetais extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final product=products[index];
+    final bloc=context.read<QuantityBloc>();
 
-    // final productProvider =Provider.of<ProductProvider>(context);
-    // final isLoading =productProvider.isLoading;
-    // final products = productProvider.getProducts;
-    // if(isLoading){
-    //   return Center(
-    //     child:CircularProgressIndicator(),
-    //   );
-    // }
     return Scaffold(
       appBar: AppBar(title: Text(product.name),
       centerTitle: true,),
@@ -41,11 +40,24 @@ class ProductDetais extends StatelessWidget {
             const SizedBox(height:12),
             Padding(
                 padding: EdgeInsets.only(left:4 , right: 4),
-                child: Text(product.description , style: TextStyle(fontSize:20 ),)),
+                child: Text(product.description , style: TextStyle(fontSize:20 ,
+                color: Colors.black38),)),
             const SizedBox(
               height:30,
             ),
-             buildElevatedButton(context, product)
+            BlocBuilder<QuantityBloc,Map<int ,int>>
+              (builder: (context , quantityMap){
+                  final product = products[index];
+                   final productId=product.productId;
+                   final quantity=quantityMap[productId] ??0;
+                return Counter(bloc: bloc, productId: productId, quantity: quantity);
+              }
+            )
+             ,
+            const SizedBox(
+              height:12,
+            ),
+             AddToCartButton(product: product),
 
 
           ],
@@ -60,29 +72,8 @@ class ProductDetais extends StatelessWidget {
             child: Image.asset(product.imgproduct , fit: BoxFit.cover , height: 200,),
           );
   }
-
-
-
-
-
-  SizedBox buildElevatedButton(BuildContext context, Product product) {
-    return SizedBox(
-            width: double.infinity,
-            child: Padding(
-              padding: EdgeInsets.only(left: 16,right: 16),
-              child: ElevatedButton(
-                  onPressed: (){
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("${product.name} added to cart ")),
-                    );
-                  },
-                  child: Text("ADD TO CART " , style: TextStyle(color:Colors.white , fontSize: 20),),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                   backgroundColor: Color(0xFFB39DDB)
-                ),
-              ),
-            ),
-          );
-  }
 }
+
+
+
+

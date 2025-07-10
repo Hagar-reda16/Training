@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proj/feature/presentation/manager/quantityBloc/quantity_bloc.dart';
 import 'package:proj/feature/presentation/screens/product_detais.dart';
 import 'package:proj/common_ui/products.dart';
+import 'package:proj/feature/presentation/widgets/add_to_cart_button.dart';
+import 'package:proj/feature/presentation/widgets/counter.dart';
+
+import '../manager/cart_bloc/cart_bloc.dart';
+import '../manager/cart_bloc/cart_event.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     required this.products,
   required this.index
-    // required this.product,
+
     ,super.key});
 
     // final Product product;
@@ -15,10 +22,14 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product=products[index];
+    final productId=product.productId;
     return GestureDetector(
       onTap: (){
         Navigator.push(context,
-            MaterialPageRoute(builder: (context)=> ProductDetais(products: products, index: index)));
+            MaterialPageRoute(
+                builder: (_) => ProductDetais(products: products, index: index),
+        ),
+        );
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -26,12 +37,29 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             imageBuild(product),
-            Padding(padding: EdgeInsets.all(8) ,
-              child: Text(product.name),),
-            Padding(padding: EdgeInsets.all(8) ,
-              child: Text(product.price),),
-          ],
+            SizedBox(height: 8,),
+            Text(product.name , style: TextStyle(fontWeight:FontWeight.bold),),
+            SizedBox(height: 8,),
+            Text(product.price , style: TextStyle(fontWeight:FontWeight.bold),),
+            SizedBox(height: 8,),
+            BlocBuilder<QuantityBloc, Map<int, int>>(
+              builder: (context, quantityMap) {
+                final product = products[index];
+                final productId = product.productId;
+                final quantity = quantityMap[productId] ?? 0;
+                final bloc = context.read<QuantityBloc>();
+
+                return Column(
+                  children: [
+                    Counter(bloc: bloc, productId: productId, quantity: quantity),
+                    AddToCartButton(product: product),
+                  ],
+
+                );
+              })],
+
         ),
+
       ),
     );
   }

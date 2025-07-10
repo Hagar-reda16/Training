@@ -11,14 +11,14 @@ class AllProductSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productProvider =Provider.of<ProductProvider>(context);
-    final isLoading =productProvider.isLoading;
-    final products = productProvider.getProducts;
-    if(isLoading){
-      return Center(
-          child:CircularProgressIndicator(),
-      );
-    }
+    // final productProvider =Provider.of<ProductProvider>(context);
+    // final isLoading =productProvider.isLoading;
+    // final products = productProvider.getProducts;
+    // if(isLoading){
+    //   return Center(
+    //       child:CircularProgressIndicator(),
+    //   );
+    // }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -27,8 +27,10 @@ class AllProductSection extends StatelessWidget {
          const Text("All products :" , style: TextStyle(fontSize: 25),),
         const SizedBox(height: 4,),
         GridView.builder(
+
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: 0.65,
               crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,),
