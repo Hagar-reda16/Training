@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:proj/common_ui/products.dart';
-import 'package:proj/feature/presentation/widgets/add_to_cart_button.dart';
-import 'package:provider/provider.dart';
+import 'package:proj/feature/presentation/widgets/addButton.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj/feature/presentation/manager/quantityBloc/quantity_bloc.dart';
+import 'package:proj/service_locator.dart';
 
 
-import '../widgets/counter.dart';
 
 class ProductDetais extends StatelessWidget {
   const ProductDetais({
@@ -22,7 +22,7 @@ class ProductDetais extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final product=products[index];
-    final bloc=context.read<QuantityBloc>();
+    final quantityBoc=getIt<QuantityBloc>();
 
     return Scaffold(
       appBar: AppBar(title: Text(product.name),
@@ -46,18 +46,16 @@ class ProductDetais extends StatelessWidget {
               height:30,
             ),
             BlocBuilder<QuantityBloc,Map<int ,int>>
-              (builder: (context , quantityMap){
+              (bloc: quantityBoc,
+                builder: (context , quantityMap){
                   final product = products[index];
                    final productId=product.productId;
                    final quantity=quantityMap[productId] ??0;
-                return Counter(bloc: bloc, productId: productId, quantity: quantity);
+                return AddButton(product: product);
               }
             )
              ,
-            const SizedBox(
-              height:12,
-            ),
-             AddToCartButton(product: product),
+
 
 
           ],

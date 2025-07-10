@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj/feature/presentation/manager/quantityBloc/quantity_bloc.dart';
 import 'package:proj/feature/presentation/screens/product_detais.dart';
 import 'package:proj/common_ui/products.dart';
+import 'package:proj/feature/presentation/widgets/addButton.dart';
 import 'package:proj/feature/presentation/widgets/add_to_cart_button.dart';
 import 'package:proj/feature/presentation/widgets/counter.dart';
 
@@ -22,12 +23,13 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product=products[index];
-    final productId=product.productId;
+    //final productId=product.productId; ///////
     return GestureDetector(
       onTap: (){
         Navigator.push(context,
             MaterialPageRoute(
-                builder: (_) => ProductDetais(products: products, index: index),
+                builder: (_) => ProductDetais(
+                    products: products, index: index),
         ),
         );
       },
@@ -42,21 +44,18 @@ class ProductCard extends StatelessWidget {
             SizedBox(height: 8,),
             Text(product.price , style: TextStyle(fontWeight:FontWeight.bold),),
             SizedBox(height: 8,),
-            BlocBuilder<QuantityBloc, Map<int, int>>(
-              builder: (context, quantityMap) {
-                final product = products[index];
-                final productId = product.productId;
-                final quantity = quantityMap[productId] ?? 0;
-                final bloc = context.read<QuantityBloc>();
+            // BlocBuilder<QuantityBloc, Map<int, int>>(
+              // builder: (context, quantityMap) {
+              //   final product = products[index];
+              //   final productId = product.productId;
+              //   final quantity = quantityMap[productId] ?? 0;
+              //   final bloc = context.read<QuantityBloc>();
 
-                return Column(
-                  children: [
-                    Counter(bloc: bloc, productId: productId, quantity: quantity),
-                    AddToCartButton(product: product),
-                  ],
-
-                );
-              })],
+                //return
+            AddButton(product: product),
+              //}
+      //        )
+      ],
 
         ),
 

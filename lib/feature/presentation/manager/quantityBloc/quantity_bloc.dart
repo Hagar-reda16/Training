@@ -19,6 +19,13 @@ class SetQuantity extends QuantityEvent {
   SetQuantity(this.productId, this.quantity);
 }
 
+class UpdateQuantity extends QuantityEvent {
+  final int productId;
+  final int newQuantity;
+
+  UpdateQuantity(this.productId, this.newQuantity);
+}
+
 
 class QuantityBloc extends Bloc<QuantityEvent, Map<int,int>> {
   QuantityBloc() : super({}) {
@@ -41,6 +48,16 @@ class QuantityBloc extends Bloc<QuantityEvent, Map<int,int>> {
     on<SetQuantity>((event, emit) {
       final updated = Map<int, int>.from(state);
       updated[event.productId] = event.quantity;
+      emit(updated);
+    });
+
+    on<UpdateQuantity>((event, emit) {
+      final updated = Map<int, int>.from(state);
+      if (event.newQuantity == 0) {
+        updated.remove(event.productId);
+      } else {
+        updated[event.productId] = event.newQuantity;
+      }
       emit(updated);
     });
   }

@@ -12,4 +12,8 @@ class AddToCart extends CartEvent{
   List<Object?> get props => [productId];
 }
 
+class LoadCart extends CartEvent {
+  const LoadCart();
+}
+
 
