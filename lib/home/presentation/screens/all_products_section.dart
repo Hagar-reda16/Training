@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:proj/feature/presentation/widgets/product_card.dart';
+import 'package:proj/home/presentation/widgets/product_card.dart';
 import 'package:proj/common_ui/products.dart';
 import 'package:proj/common_ui/product_data.dart';
 import 'package:provider/provider.dart';
-import 'package:proj/feature/presentation/manager/product_provider.dart';
+
 
 class AllProductSection extends StatelessWidget {
 
@@ -11,14 +11,6 @@ class AllProductSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final productProvider =Provider.of<ProductProvider>(context);
-    // final isLoading =productProvider.isLoading;
-    // final products = productProvider.getProducts;
-    // if(isLoading){
-    //   return Center(
-    //       child:CircularProgressIndicator(),
-    //   );
-    // }
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

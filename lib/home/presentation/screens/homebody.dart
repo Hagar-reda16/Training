@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proj/feature/presentation/widgets/all_products_section.dart';
+import 'package:proj/home/presentation/screens/all_products_section.dart';
 
 import 'featured_section.dart';
 import 'categories_section.dart';

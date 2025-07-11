@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:proj/feature/presentation/manager/quantityBloc/quantity_bloc.dart';
-import 'package:proj/feature/presentation/screens/product_detais.dart';
+import 'package:proj/product_details/presentation/screens/product_detais.dart';
 import 'package:proj/common_ui/products.dart';
-import 'package:proj/feature/presentation/widgets/addButton.dart';
-import 'package:proj/feature/presentation/widgets/add_to_cart_button.dart';
-import 'package:proj/feature/presentation/widgets/counter.dart';
+import 'package:proj/common_ui/addButton.dart';
 
-import '../manager/cart_bloc/cart_bloc.dart';
-import '../manager/cart_bloc/cart_event.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -17,13 +11,11 @@ class ProductCard extends StatelessWidget {
 
     ,super.key});
 
-    // final Product product;
   final List <Product> products;
   final int index;
   @override
   Widget build(BuildContext context) {
     final product=products[index];
-    //final productId=product.productId; ///////
     return GestureDetector(
       onTap: (){
         Navigator.push(context,
@@ -44,17 +36,9 @@ class ProductCard extends StatelessWidget {
             SizedBox(height: 8,),
             Text(product.price , style: TextStyle(fontWeight:FontWeight.bold),),
             SizedBox(height: 8,),
-            // BlocBuilder<QuantityBloc, Map<int, int>>(
-              // builder: (context, quantityMap) {
-              //   final product = products[index];
-              //   final productId = product.productId;
-              //   final quantity = quantityMap[productId] ?? 0;
-              //   final bloc = context.read<QuantityBloc>();
 
-                //return
             AddButton(product: product),
-              //}
-      //        )
+
       ],
 
         ),

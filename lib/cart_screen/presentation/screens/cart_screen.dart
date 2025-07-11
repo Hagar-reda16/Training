@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proj/common_manager/cart_bloc/cart_state.dart';
 import 'package:proj/common_ui/products.dart';
-import '../manager/cart_bloc/cart_bloc.dart';
-import '../manager/cart_bloc/cart_event.dart';
-import '../manager/quantityBloc/quantity_bloc.dart';
-import 'package:proj/service_locator.dart';
+import '../../../common_manager/cart_bloc/cart_bloc.dart';
+import '../../../common_manager/cart_bloc/cart_event.dart';
+import '../../../common_manager/quantity_bloc/quantity_bloc.dart';
+import 'package:proj/common_manager/getIt/service_locator.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({required this.allProducts});
@@ -20,20 +21,20 @@ class CartScreen extends StatelessWidget {
         title: Text("Cart"),
         centerTitle: true,
       ),
-      body: BlocBuilder<CartBloc,Map<int,int>>
+      body: BlocBuilder<CartBloc,CartState>
         ( bloc: cartBloc,
-        builder: ( context, cartMap) {
-          if(cartMap.isEmpty){
+        builder: ( context, state) {
+          if(state.cartItems.isEmpty){
             return const Center(
               child:Text("Your Cart Is EMPTY 🛒 " , style: TextStyle(fontSize: 28),),
             );
           }
-          final cartItems=allProducts.where((product)=>cartMap.containsKey(product.productId)).toList();
+          final cartItems=allProducts.where((product)=>state.cartItems.containsKey(product.productId)).toList();
            return ListView.builder(
                itemCount: cartItems.length,
                itemBuilder: (context,index){
                  final product=cartItems[index];
-                 final quantity=cartMap[product.productId] ??0;
+                 final quantity=state.cartItems[product.productId] ??0;
 
                  return  finalProductCard(product, quantity, context , quantityBloc ,cartBloc);
 
@@ -67,22 +68,14 @@ class CartScreen extends StatelessWidget {
                                children: [
                                  IconButton(
                                    onPressed: () {
-                                     final updatedQty = quantity - 1;
-                                     cartBloc.add(
-                                         AddToCart(product.productId, updatedQty));
-                                     quantityBloc.add(
-                                         UpdateQuantity(product.productId, updatedQty));
+                                    cartBloc.add(DecrementProduct(product.productId));
                                    },
                                    icon: Icon(Icons.remove),
                                  ),
                                  Text(quantity.toString()),
                                  IconButton(
                                    onPressed: () {
-                                     final updatedQty = quantity + 1;
-                                     cartBloc.add(
-                                         AddToCart(product.productId, updatedQty));
-                                     quantityBloc.add(
-                                         UpdateQuantity(product.productId, updatedQty));
+                                     cartBloc.add(IncrementProduct(product.productId));
                                    },
                                    icon: Icon(Icons.add),
                                  ),

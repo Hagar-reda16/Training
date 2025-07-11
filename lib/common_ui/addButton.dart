@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../common_ui/products.dart';
-import '../manager/quantityBloc/quantity_bloc.dart';
-import '../manager/cart_bloc/cart_bloc.dart';
-import '../manager/cart_bloc/cart_event.dart';
-import 'package:proj/service_locator.dart';
+import '../common_manager/cart_bloc/cart_event.dart';
+import 'products.dart';
+import '../common_manager/quantity_bloc/quantity_bloc.dart';
+import 'package:proj/common_manager/getIt/service_locator.dart';
+import 'package:proj/common_manager/cart_bloc/cart_bloc.dart';
 
 class AddButton extends StatelessWidget {
   final Product product;

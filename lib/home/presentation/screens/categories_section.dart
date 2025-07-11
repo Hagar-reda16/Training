@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../common_ui/categories.dart';
+import '../widgets/categories.dart';
 import '../../../common_ui/constant.dart';
 class CategoriesSection extends StatelessWidget {
   const CategoriesSection({super.key});

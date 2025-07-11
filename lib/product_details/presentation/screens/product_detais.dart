@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:proj/common_ui/products.dart';
-import 'package:proj/feature/presentation/widgets/addButton.dart';
+import 'package:proj/common_ui/addButton.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:proj/feature/presentation/manager/quantityBloc/quantity_bloc.dart';
-import 'package:proj/service_locator.dart';
+import 'package:proj/common_manager/quantity_bloc/quantity_bloc.dart';
+import 'package:proj/common_manager/getIt/service_locator.dart';
 
 
 

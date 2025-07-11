@@ -45,11 +45,7 @@ class QuantityBloc extends Bloc<QuantityEvent, Map<int,int>> {
       emit(updated);
     });
 
-    on<SetQuantity>((event, emit) {
-      final updated = Map<int, int>.from(state);
-      updated[event.productId] = event.quantity;
-      emit(updated);
-    });
+
 
     on<UpdateQuantity>((event, emit) {
       final updated = Map<int, int>.from(state);

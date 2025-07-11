@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proj/feature/presentation/screens/welcome_screen.dart';
-import 'package:proj/service_locator.dart';
+import 'package:proj/welcom_screen/screens/welcome_screen.dart';
+import 'package:proj/common_manager/getIt/service_locator.dart';
 
 
 void main(){
