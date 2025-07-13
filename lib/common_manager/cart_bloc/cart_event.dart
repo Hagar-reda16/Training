@@ -25,6 +25,8 @@ class DecrementProduct extends CartEvent{
 
   DecrementProduct(this.productId);
 }
-
+class ClearCart extends CartEvent {
+  const ClearCart();
+}
 
 

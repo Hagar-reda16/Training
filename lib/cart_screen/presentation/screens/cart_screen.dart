@@ -30,20 +30,73 @@ class CartScreen extends StatelessWidget {
             );
           }
           final cartItems=allProducts.where((product)=>state.cartItems.containsKey(product.productId)).toList();
-           return ListView.builder(
-               itemCount: cartItems.length,
-               itemBuilder: (context,index){
-                 final product=cartItems[index];
-                 final quantity=state.cartItems[product.productId] ??0;
+           return Column(
+             children: [
+               Expanded(
+                 child: ListView.builder(
+                     padding: const EdgeInsets.only(bottom: 16),
+                     itemCount: cartItems.length,
+                     itemBuilder: (context,index){
+                       final product=cartItems[index];
+                       final quantity=state.cartItems[product.productId] ??0;
 
-                 return  finalProductCard(product, quantity, context , quantityBloc ,cartBloc);
+                       return  finalProductCard(product, quantity, context , quantityBloc ,cartBloc);
 
-               });
-          
-      },
+                     }),
+               ),
+               const Divider(thickness: 1.5),
 
-    ),
-
+               Padding(
+                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                 child: Column(
+                   children: [
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         const Text("Total:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                         Text("${state.totalPrice} LE", style: const TextStyle(fontSize: 18)),
+                       ],
+                     ),
+                     const SizedBox(height: 12),
+                     Row(
+                       children: [
+                         Expanded(
+                           child: ElevatedButton.icon(
+                             onPressed: () {
+                               cartBloc.add(const ClearCart());
+                               quantityBloc.add(ResetAllQuantities());
+                             },
+                             icon: const Icon(Icons.delete_forever),
+                             label: const Text("Clear Cart"),
+                             style: ElevatedButton.styleFrom(
+                               backgroundColor: Colors.red,
+                             ),
+                           ),
+                         ),
+                         const SizedBox(width: 10),
+                         Expanded(
+                           child: ElevatedButton.icon(
+                             onPressed: () {
+                               ScaffoldMessenger.of(context).showSnackBar(
+                                 const SnackBar(content: Text("Proceeding to checkout...")),
+                               );
+                             },
+                             icon: const Icon(Icons.payment),
+                             label: const Text("Checkout"),
+                             style: ElevatedButton.styleFrom(
+                               backgroundColor: Colors.green,
+                             ),
+                           ),
+                         ),
+                       ],
+                     ),
+                   ],
+                 ),
+               ),
+             ],
+           );
+        },
+      ),
     );
   }
 
