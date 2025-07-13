@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj/common_manager/cart_bloc/cart_event.dart';
 import 'package:proj/common_manager/cart_bloc/cart_state.dart';
+import 'package:proj/common_manager/hive/hive_helper.dart';
 import 'package:proj/common_manager/shared_preferences/local_storage.dart';
 
 import '../../common_ui/products.dart';
@@ -40,12 +41,12 @@ class CartBloc extends Bloc<CartEvent ,CartState> {
     }
     final total = _calculateTotal(updated, allProducts);
     emit(CartState(updated, totalPrice: total));
-    await LocalStorage.saveCart(updated);
+    await HiveHelper.saveCart(updated);
   }
 
 
   Future<void> _onLoadCart(LoadCart event, Emitter<CartState> emit) async {
-    final savedCart = await LocalStorage.loadCart();
+    final savedCart = await HiveHelper.loadCart();
     final total = _calculateTotal(savedCart, allProducts);
     emit(CartState(savedCart, totalPrice: total));
   }
@@ -58,8 +59,9 @@ class CartBloc extends Bloc<CartEvent ,CartState> {
 
     final total = _calculateTotal(updated, allProducts);
     emit(CartState(updated, totalPrice: total));
-    await LocalStorage.saveCart(updated);
+    await HiveHelper.saveCart(updated);
   }
+
   Future<void> _onDecrementProduct(
       DecrementProduct event, Emitter<CartState> emit) async {
     final updated = Map<int, int>.from(state.cartItems);
@@ -73,12 +75,12 @@ class CartBloc extends Bloc<CartEvent ,CartState> {
     }
     final total = _calculateTotal(updated, allProducts);
     emit(CartState(updated, totalPrice: total));
-    await LocalStorage.saveCart(updated);
+    await HiveHelper.saveCart(updated);
   }
 
  Future<void> _onClearCart(ClearCart event, Emitter<CartState> emit) async {
    final emptyCart = <int, int>{};
    emit(CartState(emptyCart , totalPrice: 0));
-   await LocalStorage.saveCart({});
+   await HiveHelper.saveCart({});
  }
 }
