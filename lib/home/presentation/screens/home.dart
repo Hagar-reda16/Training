@@ -8,6 +8,7 @@ import 'package:proj/common_manager/cart_bloc/cart_bloc.dart';
 import 'package:proj/cart_screen/presentation/screens/cart_screen.dart';
 import 'package:proj/home/presentation/screens/homebody.dart';
 import 'package:proj/common_manager/getIt/service_locator.dart';
+import 'package:proj/home/presentation/widgets/home_nav_bar.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -19,21 +20,23 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("E-commerce", style: TextStyle( fontSize: 28), ),
+        centerTitle: true,
         //centerTitle: true,
-        backgroundColor: Colors.white,
-        actions: [
-          favouritesButton()
-          ,
-          BlocBuilder<CartBloc, CartState>(
-            bloc: cartBloc,
-            builder: (context, state) {
-              int totalQuantity = state.cartItems.values.fold(0, (sum, item) => sum + item);
-              return cartButton(context ,totalQuantity);
-            },
-          ),
-        ],
+        backgroundColor: Colors.transparent,
+        // actions: [
+        //   favouritesButton()
+        //   ,
+        //   BlocBuilder<CartBloc, CartState>(
+        //     bloc: cartBloc,
+        //     builder: (context, state) {
+        //       int totalQuantity = state.cartItems.values.fold(0, (sum, item) => sum + item);
+        //       return cartButton(context ,totalQuantity);
+        //     },
+        //   ),
+        // ],
       ),
-      body:HomeBody(),
+      // body:HomeBody()
+      body: HomeNavBar(),
 
     );
 

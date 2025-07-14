@@ -17,10 +17,7 @@ class CartScreen extends StatelessWidget {
     final quantityBloc = getIt<QuantityBloc>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Cart"),
-        centerTitle: true,
-      ),
+
       body: BlocBuilder<CartBloc,CartState>
         ( bloc: cartBloc,
         builder: ( context, state) {
