@@ -2,6 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj/common_manager/cart_bloc/cart_state.dart';
+import 'package:proj/profile/presentations/screens/profile.dart';
 
 import '../../../cart_screen/presentation/screens/cart_screen.dart';
 import '../../../common_manager/cart_bloc/cart_bloc.dart';
@@ -24,15 +25,17 @@ class _HomeNavBarState extends State<HomeNavBar> {
     const HomeBody(),
     const Center(child: Text("Favourites", style: TextStyle(fontSize: 24))),
     CartScreen(allProducts: products),
+
+    Profile(),
+
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-  children: [
-    Expanded(
-        child: _screens[_currentIndex]),
-    BottomNavigationBar(
+    return Scaffold(
+  body: _screens[_currentIndex],
+   bottomNavigationBar:  BottomNavigationBar(
+     type: BottomNavigationBarType.fixed,
       currentIndex: _currentIndex,
       onTap: (index){
         setState(() {
@@ -52,7 +55,7 @@ class _HomeNavBarState extends State<HomeNavBar> {
             builder: (context, state) {
               int totalQuantity =
                   state.totalQuantity;
-              //state.cartItems.values.fold(0, (sum, item) => sum + item);
+
               return badges.Badge(
                 showBadge: totalQuantity > 0,
                 position: badges.BadgePosition.topEnd(top: -12, end: -12),
@@ -66,10 +69,16 @@ class _HomeNavBarState extends State<HomeNavBar> {
           ),
           label: 'Cart',
         ),
+        const BottomNavigationBarItem(icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+
+
+
       ],
 
     )
-  ],
+
     );
   }
 }

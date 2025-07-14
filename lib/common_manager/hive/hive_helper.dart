@@ -5,7 +5,7 @@ class HiveHelper {
   static const String _cartKey = 'cart';
 
 
-  static Future<void> saveCart(Map<int, int> cartItems) async {
+  static Future<void> saveCart(Map< int,int>cartItems) async {
     final box = await Hive.openBox(_boxName);
     final converted = cartItems.map((key, value) => MapEntry(key.toString(), value));
     await box.put(_cartKey, converted);
