@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:proj/common_ui/products.dart';
 import 'package:proj/common_ui/addButton.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj/common_manager/quantity_bloc/quantity_bloc.dart';
 import 'package:proj/common_manager/getIt/service_locator.dart';
 
 
 
-class ProductDetais extends StatelessWidget {
-  const ProductDetais({
+class ProductDetails extends StatelessWidget {
+  const ProductDetails({
 
     required this.products,
     required this.index,
@@ -38,10 +36,7 @@ class ProductDetais extends StatelessWidget {
             const SizedBox(height: 12,),
             Text(product.price, style: TextStyle(fontWeight:FontWeight.bold , fontSize: 24),),
             const SizedBox(height:12),
-            Padding(
-                padding: EdgeInsets.only(left:4 , right: 4),
-                child: Text(product.description , style: TextStyle(fontSize:20 ,
-                color: Colors.black38),)),
+            description(product),
             const SizedBox(
               height:30,
             ),
@@ -64,7 +59,14 @@ class ProductDetais extends StatelessWidget {
     );
   }
 
-  ClipRRect buildImg(Product product) {
+  Widget description(Product product) {
+    return Padding(
+              padding: EdgeInsets.only(left:4 , right: 4),
+              child: Text(product.description , style: TextStyle(fontSize:20 ,
+              color: Colors.black38),));
+  }
+
+  Widget buildImg(Product product) {
     return ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Image.asset(product.imgproduct , fit: BoxFit.cover , height: 200,),

@@ -21,6 +21,9 @@ class CategoriesSection extends StatelessWidget {
 
 
 
+
+
+
   SingleChildScrollView items() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,

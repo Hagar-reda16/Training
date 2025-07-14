@@ -25,7 +25,6 @@ class _HomeNavBarState extends State<HomeNavBar> {
     const HomeBody(),
     const Center(child: Text("Favourites", style: TextStyle(fontSize: 24))),
     CartScreen(allProducts: products),
-
     Profile(),
 
   ];
@@ -49,26 +48,7 @@ class _HomeNavBarState extends State<HomeNavBar> {
         const BottomNavigationBarItem(icon: Icon(Icons.favorite_outline),
           label: 'Favourites',
         ),
-        BottomNavigationBarItem(
-          icon: BlocBuilder<CartBloc, CartState>(
-            bloc: cartBloc,
-            builder: (context, state) {
-              int totalQuantity =
-                  state.totalQuantity;
-
-              return badges.Badge(
-                showBadge: totalQuantity > 0,
-                position: badges.BadgePosition.topEnd(top: -12, end: -12),
-                badgeContent: Text(
-                  '$totalQuantity',
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
-                ),
-                child: const Icon(Icons.shopping_cart),
-              );
-            },
-          ),
-          label: 'Cart',
-        ),
+        buildBottomNavigationBarCartItem(),
         const BottomNavigationBarItem(icon: Icon(Icons.person),
           label: 'Profile',
         ),
@@ -80,5 +60,28 @@ class _HomeNavBarState extends State<HomeNavBar> {
     )
 
     );
+  }
+
+  BottomNavigationBarItem buildBottomNavigationBarCartItem() {
+    return BottomNavigationBarItem(
+        icon: BlocBuilder<CartBloc, CartState>(
+          bloc: cartBloc,
+          builder: (context, state) {
+            int totalQuantity =
+                state.totalQuantity;
+
+            return badges.Badge(
+              showBadge: totalQuantity > 0,
+              position: badges.BadgePosition.topEnd(top: -12, end: -12),
+              badgeContent: Text(
+                '$totalQuantity',
+                style: const TextStyle(color: Colors.white, fontSize: 12),
+              ),
+              child: const Icon(Icons.shopping_cart),
+            );
+          },
+        ),
+        label: 'Cart',
+      );
   }
 }

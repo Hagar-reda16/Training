@@ -21,19 +21,8 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("E-commerce", style: TextStyle( fontSize: 28), ),
         centerTitle: true,
-        //centerTitle: true,
         backgroundColor: Colors.transparent,
-        // actions: [
-        //   favouritesButton()
-        //   ,
-        //   BlocBuilder<CartBloc, CartState>(
-        //     bloc: cartBloc,
-        //     builder: (context, state) {
-        //       int totalQuantity = state.cartItems.values.fold(0, (sum, item) => sum + item);
-        //       return cartButton(context ,totalQuantity);
-        //     },
-        //   ),
-        // ],
+
       ),
       // body:HomeBody()
       body: HomeNavBar(),
@@ -42,27 +31,45 @@ class HomePage extends StatelessWidget {
 
 
 
-  }
+  }}
 
-  badges.Badge cartButton(BuildContext context ,int totalQuantity) {
-    return badges.Badge(
-          position: badges.BadgePosition.topEnd(top: 0, end: 4),
-          showBadge:totalQuantity>0 ,
-          badgeStyle: badges.BadgeStyle(
-           badgeColor: Colors.red ,
-          ),
-          badgeContent: Text("$totalQuantity", style: TextStyle(color: Colors.white),),
-          child: Padding(
-            padding: const EdgeInsets.only(right :8.0),
-            child: IconButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (_)=>CartScreen(allProducts:products )));
-              
-            }, icon: Icon(Icons.shopping_cart),),
-          ),
-        );
-  }
 
-  IconButton favouritesButton() => IconButton(onPressed: (){}, icon: Icon(Icons.favorite_outline));
-}
+
+
+// actions: [
+//   favouritesButton()
+//   ,
+//   BlocBuilder<CartBloc, CartState>(
+//     bloc: cartBloc,
+//     builder: (context, state) {
+//       int totalQuantity = state.cartItems.values.fold(0, (sum, item) => sum + item);
+//       return cartButton(context ,totalQuantity);
+//     },
+//   ),
+// ],
+
+
+
+
+//   badges.Badge cartButton(BuildContext context ,int totalQuantity) {
+//     return badges.Badge(
+//           position: badges.BadgePosition.topEnd(top: 0, end: 4),
+//           showBadge:totalQuantity>0 ,
+//           badgeStyle: badges.BadgeStyle(
+//            badgeColor: Colors.red ,
+//           ),
+//           badgeContent: Text("$totalQuantity", style: TextStyle(color: Colors.white),),
+//           child: Padding(
+//             padding: const EdgeInsets.only(right :8.0),
+//             child: IconButton(onPressed: (){
+//               Navigator.push(context, MaterialPageRoute(
+//                   builder: (_)=>CartScreen(allProducts:products )));
+//
+//             }, icon: Icon(Icons.shopping_cart),),
+//           ),
+//         );
+//   }
+//
+//   IconButton favouritesButton() => IconButton(onPressed: (){}, icon: Icon(Icons.favorite_outline));
+// }
 

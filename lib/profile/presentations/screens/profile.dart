@@ -10,14 +10,7 @@ class Profile extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
          children: [
-
-           CircleAvatar(
-             radius: 140,
-             child: CircleAvatar(
-               backgroundImage: AssetImage("assets/pics/cat.jpg"),
-               radius: 132,
-             ),
-           ),
+           buildCircleAvatar(),
            const SizedBox(
              height: 12,
            ),
@@ -33,5 +26,18 @@ class Profile extends StatelessWidget {
          ],
       ),
     );
+  }
+
+
+
+
+  CircleAvatar buildCircleAvatar() {
+    return CircleAvatar(
+           radius: 140,
+           child: CircleAvatar(
+             backgroundImage: AssetImage("assets/pics/cat.jpg"),
+             radius: 132,
+           ),
+         );
   }
 }

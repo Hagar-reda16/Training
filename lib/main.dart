@@ -9,7 +9,6 @@ import 'package:proj/common_manager/getIt/service_locator.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox<Map>('catBox');
   setupLocator(products);
   runApp( ECommerce());
 

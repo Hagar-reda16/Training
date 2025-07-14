@@ -5,6 +5,8 @@ import 'package:proj/common_manager/hive/hive_helper.dart';
 import 'package:proj/common_manager/shared_preferences/local_storage.dart';
 
 import '../../common_ui/products.dart';
+import '../getIt/service_locator.dart';
+import '../quantity_bloc/quantity_bloc.dart';
 import 'cart_event.dart';
 
 class CartBloc extends Bloc<CartEvent ,CartState> {
@@ -49,6 +51,7 @@ class CartBloc extends Bloc<CartEvent ,CartState> {
     final savedCart = await HiveHelper.loadCart();
     final total = _calculateTotal(savedCart, allProducts);
     emit(CartState(savedCart, totalPrice: total));
+    getIt<QuantityBloc>().add(LoadQuantities(savedCart));
   }
 
   Future<void> _onIncrementProduct(

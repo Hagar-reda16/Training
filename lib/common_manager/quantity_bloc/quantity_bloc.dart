@@ -25,6 +25,11 @@ class UpdateQuantity extends QuantityEvent {
 
   UpdateQuantity(this.productId, this.newQuantity);
 }
+class LoadQuantities extends QuantityEvent {
+  final Map<int, int> quantities;
+
+  LoadQuantities(this.quantities);
+}
 class ResetAllQuantities extends QuantityEvent {}
 class ClearAllQuantities extends QuantityEvent {}
 
@@ -57,6 +62,10 @@ class QuantityBloc extends Bloc<QuantityEvent, Map<int,int>> {
         updated[event.productId] = event.newQuantity;
       }
       emit(updated);
+    });
+
+    on<LoadQuantities>((event, emit) {
+      emit(Map<int, int>.from(event.quantities));
     });
 
     on<ResetAllQuantities>((event, emit) {

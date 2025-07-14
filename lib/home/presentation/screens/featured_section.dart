@@ -24,6 +24,11 @@ class FeaturedSection extends StatelessWidget {
     );
   }
 
+
+
+
+
+
   Widget textContainer() {
     return Positioned(
             bottom: 0,
