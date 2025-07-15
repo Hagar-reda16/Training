@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:proj/common_manager/cart_bloc/cart_state.dart';
 import '../common_manager/cart_bloc/cart_event.dart';
 import 'products.dart';
 import '../common_manager/quantity_bloc/quantity_bloc.dart';
@@ -15,18 +16,18 @@ class AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final productId = product.productId;
 
-    final quantityBloc = getIt<QuantityBloc>();
+    //final quantityBloc = getIt<QuantityBloc>();
     final cartBloc = getIt<CartBloc>();
 
-    return BlocBuilder<QuantityBloc, Map<int, int>>(
-      bloc: quantityBloc,
-      builder: (context, quantityMap) {
-        final quantity = quantityMap[productId] ?? 0;
+    return BlocBuilder<CartBloc, CartState>(
+      bloc: cartBloc,
+      builder: (context, cartState) {
+        final quantity = cartState.cartItems[productId] ?? 0;
 
         if (quantity == 0) {
-          return buildButton(quantityBloc, productId, cartBloc);
+          return buildButton(cartBloc, productId);
         } else {
-          return buildContainer(quantity, quantityBloc, productId, cartBloc, context);
+          return buildContainer(cartBloc, quantity, productId);
         }
       },
     );
@@ -34,7 +35,7 @@ class AddButton extends StatelessWidget {
 
 
 
-  Widget buildContainer(int quantity, QuantityBloc quantityBloc, int productId, CartBloc cartBloc, BuildContext context) {
+  Widget buildContainer(CartBloc cartBloc, int quantity, int productId) {
     return Container(
           height: 45,
           decoration: BoxDecoration(
@@ -46,10 +47,10 @@ class AddButton extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  final newQuantity= quantity-1;
-                  quantityBloc.add(DecrementQuantity(productId));
-
-                      cartBloc.add(AddToCart(productId, newQuantity));
+                  //final newQuantity= quantity-1;
+                 // quantityBloc.add(DecrementQuantity(productId));
+                  cartBloc.add(DecrementProduct(productId));
+                      //cartBloc.add(AddToCart(productId, newQuantity));
 
                   // final message = (newQuantity == 0)
                   //     ? "${product.name} removed from cart"
@@ -67,10 +68,10 @@ class AddButton extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  final newQuantity=quantity+1;
-                  quantityBloc.add(IncrementQuantity(productId));
-
-                      cartBloc.add(AddToCart(productId, newQuantity));
+                  //final newQuantity=quantity+1;
+                  //quantityBloc.add(IncrementQuantity(productId));
+                  cartBloc.add(IncrementProduct(productId));
+                      //cartBloc.add(AddToCart(productId, newQuantity));
                   // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   //   content: Text("$newQuantity item(s) of ${product.name} updated in cart"),
                   // ));
@@ -82,14 +83,15 @@ class AddButton extends StatelessWidget {
         );
   }
 
-  Widget buildButton(QuantityBloc quantityBloc, int productId, CartBloc cartBloc) {
+  Widget buildButton(CartBloc cartBloc, int productId) {
     return SizedBox(
           width: double.infinity,
           height: 45,
           child: ElevatedButton(
             onPressed: () {
-              quantityBloc.add(IncrementQuantity(productId));
-              cartBloc.add(AddToCart(productId, 1));
+              //quantityBloc.add(IncrementQuantity(productId));
+              cartBloc.add(IncrementProduct(productId));
+              //cartBloc.add(AddToCart(productId, 1));
 
               // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               //   content: Text("1 item of ${product.name} added to cart"),

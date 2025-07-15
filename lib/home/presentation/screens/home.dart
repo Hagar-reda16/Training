@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartBloc=getIt<CartBloc>();
+   // final cartBloc=getIt<CartBloc>();
     return Scaffold(
       appBar: AppBar(
         title: Text("E-commerce", style: TextStyle( fontSize: 28), ),
