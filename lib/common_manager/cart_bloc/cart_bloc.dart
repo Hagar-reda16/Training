@@ -7,8 +7,10 @@ import 'package:proj/common_manager/shared_preferences/local_storage.dart';
 import '../../common_ui/products.dart';
 import '../getIt/service_locator.dart';
 import '../quantity_bloc/quantity_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'cart_event.dart';
 
+@lazySingleton
 class CartBloc extends Bloc<CartEvent ,CartState> {
  List<Product>allProducts;
   CartBloc(this.allProducts) : super(CartState({})) {

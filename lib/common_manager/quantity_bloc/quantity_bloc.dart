@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
 
 abstract class QuantityEvent {}
@@ -33,7 +34,7 @@ class LoadQuantities extends QuantityEvent {
 class ResetAllQuantities extends QuantityEvent {}
 class ClearAllQuantities extends QuantityEvent {}
 
-
+@lazySingleton
 class QuantityBloc extends Bloc<QuantityEvent, Map<int,int>> {
   QuantityBloc() : super({}) {
     on<IncrementQuantity>((event, emit) {
