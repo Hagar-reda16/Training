@@ -8,29 +8,21 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
-        ),
-        ListView(
-          padding: EdgeInsets.all(8),
-          children: [
-            FeaturedSection(),
-            SizedBox(
-              height: 16,
-            ),
-            CategoriesSection(),
-            SizedBox(
-              height: 16,
-            ),
-            AllProductSection(),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          FeaturedSection(),
 
-          ],
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:16 ,vertical:24 ),
+               child: Column(
+              children: [
+                AllProductSection(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

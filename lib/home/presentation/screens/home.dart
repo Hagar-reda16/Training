@@ -18,15 +18,56 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
    // final cartBloc=getIt<CartBloc>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text("E-commerce", style: TextStyle( fontSize: 28), ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-
+      appBar:PreferredSize(
+    preferredSize: const Size.fromHeight(72),
+    child: AppBar(
+      backgroundColor: Color(0xFFFFFFFF),
+      elevation: 0,
+      //automaticallyImplyLeading: false,
+      leading: Padding(
+        padding: const EdgeInsets.only(left:24),
+        child: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.search, color: Color(0xFF2F3036), size: 20),
+        ),
       ),
-      // body:HomeBody()
-      body: HomeNavBar(),
+      centerTitle: true,
+      title: SizedBox(
+        width: 70.23,
+        height: 35.46,
+        child: Image.asset(
+          "assets/pics/Frame 2.png",
+          fit: BoxFit.contain,
+        ),
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right:24),
+          // child: SizedBox(
+          //   width: 64,
+          //   height: 24,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.favorite_border, size: 24,color: Color(0xFF1F2024)),
+                ),
+                const SizedBox(width: 16),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.shopping_cart_outlined, size: 24,color: Color(0xFF1F2024)),
 
+                ),
+              ],
+            ),
+          ),
+        //),
+      ],
+    ),
+        ),
+
+        body: HomeNavBar(),
     );
 
 
@@ -36,17 +77,7 @@ class HomePage extends StatelessWidget {
 
 
 
-// actions: [
-//   favouritesButton()
-//   ,
-//   BlocBuilder<CartBloc, CartState>(
-//     bloc: cartBloc,
-//     builder: (context, state) {
-//       int totalQuantity = state.cartItems.values.fold(0, (sum, item) => sum + item);
-//       return cartButton(context ,totalQuantity);
-//     },
-//   ),
-// ],
+
 
 
 

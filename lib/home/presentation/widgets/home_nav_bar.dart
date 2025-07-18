@@ -19,13 +19,14 @@ class HomeNavBar extends StatefulWidget {
 class _HomeNavBarState extends State<HomeNavBar> {
 
   int _currentIndex = 0;
-  final CartBloc cartBloc = getIt<CartBloc>();
+  //final CartBloc cartBloc = getIt<CartBloc>();
 
   final List<Widget> _screens = [
-    const HomeBody(),
+     HomeBody(),
     const Center(child: Text("Favourites", style: TextStyle(fontSize: 24))),
-    CartScreen(allProducts: products),
-    Profile(),
+    const Center(child: Text("Categories", style: TextStyle(fontSize: 24))),
+   /// CartScreen(allProducts: products),
+    const Profile(),
 
   ];
 
@@ -33,55 +34,85 @@ class _HomeNavBarState extends State<HomeNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
   body: _screens[_currentIndex],
-   bottomNavigationBar:  BottomNavigationBar(
-     type: BottomNavigationBarType.fixed,
-      currentIndex: _currentIndex,
-      onTap: (index){
-        setState(() {
-          _currentIndex=index;
-        });
-      },
-      items: [
-        const BottomNavigationBarItem(icon: Icon(Icons.home),
-        label: 'Home',
-        ),
-        const BottomNavigationBarItem(icon: Icon(Icons.favorite_outline),
-          label: 'Favourites',
-        ),
-        buildBottomNavigationBarCartItem(),
-        const BottomNavigationBarItem(icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
+   bottomNavigationBar:  Container(
+     height: 88,
+     width: double.infinity,
+     padding: EdgeInsets.fromLTRB(16, 16, 16, 32), //8=>16 //2=>16
+     color: Color(0xFFFFFFFF),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child: buildNavItem(index: 0, icon: Icons.explore, label: "Explore")),
+          Expanded(child: buildNavItem(index: 1, icon: Icons.search, label: "Search")),
+          Expanded(child: buildNavItem(index: 2, icon: Icons.grid_view_rounded, label: "Categories")),
+          Expanded(child: buildNavItem(index: 3, icon: Icons.person_outline, label: "Profile")),
+        ],
+      )
 
-
-
-      ],
-
-    )
+   )
 
     );
   }
+  Widget buildNavItem({required int index, required IconData icon, required String label}) {
+    final bool isSelected = index == _currentIndex;
 
-  BottomNavigationBarItem buildBottomNavigationBarCartItem() {
-    return BottomNavigationBarItem(
-        icon: BlocBuilder<CartBloc, CartState>(
-          bloc: cartBloc,
-          builder: (context, state) {
-            int totalQuantity =
-                state.totalQuantity;
-
-            return badges.Badge(
-              showBadge: totalQuantity > 0,
-              position: badges.BadgePosition.topEnd(top: -12, end: -12),
-              badgeContent: Text(
-                '$totalQuantity',
-                style: const TextStyle(color: Colors.white, fontSize: 12),
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            size: 20,
+            color: isSelected ? const Color(0xFF0019FF) : const Color(0xFFD4D6DD),
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 12,
+            child: Text(
+              label,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                fontSize: 10,
+                letterSpacing:isSelected?0:0.015,
+                height: isSelected?1.0:1.4,
+                color: isSelected ? const Color(0xFF1F2024) : const Color(0xFF71727A),
               ),
-              child: const Icon(Icons.shopping_cart),
-            );
-          },
-        ),
-        label: 'Cart',
-      );
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
+
+  // BottomNavigationBarItem buildBottomNavigationBarCartItem() {
+  //   return BottomNavigationBarItem(
+  //       icon: BlocBuilder<CartBloc, CartState>(
+  //         bloc: cartBloc,
+  //         builder: (context, state) {
+  //           int totalQuantity =
+  //               state.totalQuantity;
+  //
+  //           return badges.Badge(
+  //             showBadge: totalQuantity > 0,
+  //             position: badges.BadgePosition.topEnd(top: -12, end: -12),
+  //             badgeContent: Text(
+  //               '$totalQuantity',
+  //               style: const TextStyle(color: Colors.white, fontSize: 12),
+  //             ),
+  //             child: const Icon(Icons.shopping_cart),
+  //           );
+  //         },
+  //       ),
+  //       label: 'Cart',
+  //     );
+  // }
+
