@@ -27,7 +27,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     //final quantityBoc=getIt<QuantityBloc>();
     return FutureBuilder<ProductModel>(
-        future: ProductService().fetchProductDetails(widget.productId),
+        future: getIt<ProductService>().fetchProductDetails(widget.productId),
         builder: (context,snapshot){
           if(snapshot.connectionState==ConnectionState.waiting){
             return const Scaffold(
@@ -147,7 +147,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                           letterSpacing: 0.1,
                           height: 1.4,
                           color: Color(0xFF71727A)
-                      ),)
+                      ),
+                      ),
+                      const SizedBox(height: 100,),
+                      AddButton(product: product)
                     ],
                   ),
                 )

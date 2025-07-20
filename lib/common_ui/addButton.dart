@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj/common_manager/cart_bloc/cart_state.dart';
+import 'package:proj/data/models/product_model.dart';
 import '../common_manager/cart_bloc/cart_event.dart';
 import 'products.dart';
 import '../common_manager/quantity_bloc/quantity_bloc.dart';
@@ -8,14 +9,13 @@ import 'package:proj/common_manager/getIt/service_locator.dart';
 import 'package:proj/common_manager/cart_bloc/cart_bloc.dart';
 
 class AddButton extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
 
   const AddButton({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
-    final productId = product.productId;
-
+    final productId = product.id;
     //final quantityBloc = getIt<QuantityBloc>();
     final cartBloc = getIt<CartBloc>();
 
@@ -37,9 +37,9 @@ class AddButton extends StatelessWidget {
 
   Widget buildContainer(CartBloc cartBloc, int quantity, int productId) {
     return Container(
-          height: 45,
+          height: 48,
           decoration: BoxDecoration(
-            color: Colors.deepPurple,
+            color: Color(0xFF0019FF),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -47,18 +47,9 @@ class AddButton extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  //final newQuantity= quantity-1;
-                 // quantityBloc.add(DecrementQuantity(productId));
-                  cartBloc.add(DecrementProduct(productId));
-                      //cartBloc.add(AddToCart(productId, newQuantity));
 
-                  // final message = (newQuantity == 0)
-                  //     ? "${product.name} removed from cart"
-                  //     : "$newQuantity item(s) of ${product.name} updated in cart";
-                  //
-                  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //   content: Text(message),
-                  // ));
+                  cartBloc.add(DecrementProduct(productId));
+
                 },
                 icon: const Icon(Icons.remove, color: Colors.white),
               ),
@@ -68,13 +59,9 @@ class AddButton extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  //final newQuantity=quantity+1;
-                  //quantityBloc.add(IncrementQuantity(productId));
+
                   cartBloc.add(IncrementProduct(productId));
-                      //cartBloc.add(AddToCart(productId, newQuantity));
-                  // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //   content: Text("$newQuantity item(s) of ${product.name} updated in cart"),
-                  // ));
+
                 },
                 icon: const Icon(Icons.add, color: Colors.white),
               ),
@@ -86,26 +73,23 @@ class AddButton extends StatelessWidget {
   Widget buildButton(CartBloc cartBloc, int productId) {
     return SizedBox(
           width: double.infinity,
-          height: 45,
+          height: 48,
           child: ElevatedButton(
             onPressed: () {
-              //quantityBloc.add(IncrementQuantity(productId));
               cartBloc.add(IncrementProduct(productId));
-              //cartBloc.add(AddToCart(productId, 1));
-
-              // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //   content: Text("1 item of ${product.name} added to cart"),
-              // ));
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.deepPurple[200],
+              backgroundColor: Color(0xFF0019FF),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
             child: const Text(
-              "ADD TO CART",
-              style: TextStyle(fontSize: 16, color: Colors.white),
+              "+  Add to cart",
+              style: TextStyle(fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFF8F8F8),
+              fontFamily: 'Inter'),
             ),
           ),
         );

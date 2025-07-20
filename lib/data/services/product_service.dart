@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import '../models/product_model.dart';
 import '../../core/network/dio_client.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class ProductService{
   final Dio _dio=DioClient.dio;
 

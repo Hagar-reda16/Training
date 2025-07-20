@@ -3,6 +3,7 @@ import 'package:proj/common_manager/cart_bloc/cart_event.dart';
 import 'package:proj/common_manager/cart_bloc/cart_state.dart';
 import 'package:proj/common_manager/hive/hive_helper.dart';
 import 'package:proj/common_manager/shared_preferences/local_storage.dart';
+import 'package:proj/data/models/product_model.dart';
 
 import '../../common_ui/products.dart';
 import '../getIt/service_locator.dart';
@@ -10,10 +11,11 @@ import '../quantity_bloc/quantity_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'cart_event.dart';
 
-@lazySingleton
+//@lazySingleton
+@injectable
 class CartBloc extends Bloc<CartEvent ,CartState> {
- List<Product>allProducts;
-  CartBloc(this.allProducts) : super(CartState({})) {
+ List<ProductModel>allProducts;
+  CartBloc(@Named('allProducts')this.allProducts) : super(CartState({})) {
     on<AddToCart>(_onAddToCart);
     on<LoadCart>(_onLoadCart);
     on<IncrementProduct>(_onIncrementProduct);
@@ -21,15 +23,15 @@ class CartBloc extends Bloc<CartEvent ,CartState> {
     on<ClearCart>(_onClearCart);
 
   }
-  int _calculateTotal(Map<int, int> items, List<Product> products) {
+  int _calculateTotal(Map<int, int> items,) {
     int total = 0;
 
     for (var item in items.entries) {
       final productId = item.key;
       final quantity = item.value;
 
-      final product = products.firstWhere((p) => p.productId == productId);
-      final price = int.parse(product.price.split(' ').first);
+      final product = allProducts.firstWhere((p) => p.id == productId);
+      final price = product.price;
 
       total += price * quantity;
     }
@@ -43,7 +45,7 @@ class CartBloc extends Bloc<CartEvent ,CartState> {
     } else {
       updated[event.productId] = event.quantity;
     }
-    final total = _calculateTotal(updated, allProducts);
+    final total = _calculateTotal(updated);
     emit(CartState(updated, totalPrice: total));
     await HiveHelper.saveCart(updated);
   }
@@ -51,7 +53,7 @@ class CartBloc extends Bloc<CartEvent ,CartState> {
 
   Future<void> _onLoadCart(LoadCart event, Emitter<CartState> emit) async {
     final savedCart = await HiveHelper.loadCart();
-    final total = _calculateTotal(savedCart, allProducts);
+    final total = _calculateTotal(savedCart);
     emit(CartState(savedCart, totalPrice: total));
     getIt<QuantityBloc>().add(LoadQuantities(savedCart));
   }
@@ -62,7 +64,7 @@ class CartBloc extends Bloc<CartEvent ,CartState> {
     final currentQty = updated[event.productId] ?? 0;
     updated[event.productId] = currentQty + 1;
 
-    final total = _calculateTotal(updated, allProducts);
+    final total = _calculateTotal(updated,);
     emit(CartState(updated, totalPrice: total));
     await HiveHelper.saveCart(updated);
   }
@@ -78,7 +80,7 @@ class CartBloc extends Bloc<CartEvent ,CartState> {
     } else {
       updated[event.productId] = newQty;
     }
-    final total = _calculateTotal(updated, allProducts);
+    final total = _calculateTotal(updated,);
     emit(CartState(updated, totalPrice: total));
     await HiveHelper.saveCart(updated);
   }

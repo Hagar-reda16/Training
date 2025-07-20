@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:proj/common_manager/cart_bloc/cart_state.dart';
 import 'package:proj/common_ui/products.dart';
+import 'package:proj/data/models/product_model.dart';
 import '../../../common_manager/cart_bloc/cart_bloc.dart';
 import '../../../common_manager/cart_bloc/cart_event.dart';
 import '../../../common_manager/quantity_bloc/quantity_bloc.dart';
@@ -9,7 +10,7 @@ import 'package:proj/common_manager/getIt/service_locator.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({required this.allProducts});
-  final List<Product> allProducts;
+  final List<ProductModel> allProducts;
   @override
   Widget build(BuildContext context) {
 
@@ -17,6 +18,7 @@ class CartScreen extends StatelessWidget {
     final quantityBloc = getIt<QuantityBloc>();
 
     return Scaffold(
+      appBar: AppBar(),
 
       body: BlocBuilder<CartBloc,CartState>
         ( bloc: cartBloc,
@@ -26,7 +28,7 @@ class CartScreen extends StatelessWidget {
               child:Text("Your Cart Is EMPTY 🛒 " , style: TextStyle(fontSize: 28),),
             );
           }
-          final cartItems=allProducts.where((product)=>state.cartItems.containsKey(product.productId)).toList();
+          final cartItems=allProducts.where((product)=>state.cartItems.containsKey(product.id)).toList();
            return Column(
              children: [
                Expanded(
@@ -35,7 +37,7 @@ class CartScreen extends StatelessWidget {
                      itemCount: cartItems.length,
                      itemBuilder: (context,index){
                        final product=cartItems[index];
-                       final quantity=state.cartItems[product.productId] ??0;
+                       final quantity=state.cartItems[product.id] ??0;
 
                        return  finalProductCard(product, quantity, context , quantityBloc ,cartBloc);
 
@@ -105,20 +107,20 @@ class CartScreen extends StatelessWidget {
   }
 
 
-  Card finalProductCard(Product product, int quantity, BuildContext context ,QuantityBloc quantityBloc ,CartBloc cartBloc) {
+  Card finalProductCard(ProductModel product, int quantity, BuildContext context ,QuantityBloc quantityBloc ,CartBloc cartBloc) {
     return Card(
                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                  child: Padding(
                    padding: const EdgeInsets.all(8),
                    child: Row(
                      children: [
-                       Image.asset(product.imgproduct, width: 60, height: 60),
+                       Image.asset(product.images.first, width: 60, height: 60),
                        const SizedBox(width: 12),
                        Expanded(
                          child: Column(
                            crossAxisAlignment: CrossAxisAlignment.start,
                            children: [
-                             Text(product.name, style: TextStyle(fontWeight: FontWeight.bold)),
+                             Text(product.title, style: TextStyle(fontWeight: FontWeight.bold)),
                              const SizedBox(height: 4),
                              Text("Total: ${calculateTotalPrice(product.price, quantity)} LE"),
                              const SizedBox(height: 4),
@@ -126,14 +128,14 @@ class CartScreen extends StatelessWidget {
                                children: [
                                  IconButton(
                                    onPressed: () {
-                                    cartBloc.add(DecrementProduct(product.productId));
+                                    cartBloc.add(DecrementProduct(product.id));
                                    },
                                    icon: Icon(Icons.remove),
                                  ),
                                  Text(quantity.toString()),
                                  IconButton(
                                    onPressed: () {
-                                     cartBloc.add(IncrementProduct(product.productId));
+                                     cartBloc.add(IncrementProduct(product.id));
                                    },
                                    icon: Icon(Icons.add),
                                  ),
@@ -146,9 +148,9 @@ class CartScreen extends StatelessWidget {
                          icon: Icon(Icons.delete),
                          onPressed: () {
                            cartBloc.add(
-                               AddToCart(product.productId, 0));
+                               AddToCart(product.id, 0));
                            quantityBloc.add(
-                               UpdateQuantity(product.productId, 0));
+                               UpdateQuantity(product.id, 0));
                          },
                        ),
                      ],
@@ -156,10 +158,10 @@ class CartScreen extends StatelessWidget {
                  ),
                );
   }
-  String calculateTotalPrice(String priceInText, int quantity) {
+  String calculateTotalPrice(int price, int quantity) {
 
-    final numericPrice = int.tryParse(priceInText.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-    final total = numericPrice * quantity;
+    //final numericPrice = int.tryParse(priceInText.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    final total = price * quantity;
     return total.toString();
   }
 }
